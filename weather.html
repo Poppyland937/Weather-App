@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f9f7fe;
+        font-family: "Roboto", sans-serif;
+      }
+
+      h1 {
+        font-size: 38px;
+        font-weight: 700;
+      }
+
+      form {
+        margin-bottom: 30px;
+      }
+
+      hr {
+        color: #f9f7fe;
+        opacity: 65%;
+        border: 1px solid #f9f7fe;
+      }
+
+      p {
+        color: rgba(130, 128, 139, 0.8);
+        opacity: 95%;
+        font-weight: 100;
+        line-height: 24px;
+      }
+
+      p strong {
+        color: #f65584;
+      }
+
+      footer p {
+        margin-top: 25px;
+      }
+
+      main {
+        margin-bottom: -80px;
+      }
+
+      .city {
+        background: #f9f7fe;
+        border: 1px solid #f9f7fe;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        font-size: 16px;
+      }
+
+      .find {
+        background: #885df1;
+        padding: 18px;
+        margin-left: 8px;
+        border: 1px solid #885df1;
+        border-radius: 10px;
+        color: #ffffff;
+        font-size: 16px;
+      }
+
+      .container {
+        background-color: #ffffff;
+        margin: 60px auto;
+        width: 30%;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: rgba(0, 0, 0, 0.8);
+      }
+
+      .temperature {
+        display: flex;
+        justify-content: end;
+        font-weight: 700;
+        font-size: 80px;
+        margin: 0 60px 0 35px;
+      }
+
+      .sun {
+        font-size: 40px;
+        position: relative;
+        top: -120px;
+        right: -60px;
+      }
+
+      .degree {
+        position: relative;
+        top: -140px;
+        right: -60px;
+      }
+
+      .celsius {
+        font-weight: lighter;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          width: 70%;
+        }
+
+        h1 {
+          font-size: 32px;
+        }
+
+        .temperature {
+          font-size: 60px;
+          margin: 0 40px 0 20px;
+        }
+
+        .sun {
+          font-size: 30px;
+          top: -100px;
+          right: -40px;
+        }
+
+        .degree {
+          top: -110px;
+          right: -40px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          width: 90%;
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 28px;
+        }
+
+        .city,
+        .find {
+          width: 100%;
+          font-size: 14px;
+          margin: 5px 0;
+        }
+
+        .temperature {
+          font-size: 40px;
+          margin: 0 20px 0 10px;
+        }
+
+        .sun {
+          font-size: 20px;
+          top: -80px;
+          right: -20px;
+        }
+
+        .degree {
+          top: -90px;
+          right: -20px;
+        }
+      }
+    </style>
+    <title>My weather application</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <form>
+          <input
+            class="city"
+            id="place"
+            type="search"
+            placeholder="Enter a city.."
+            required
+          />
+          <input class="find" type="submit" value="Search" />
+        </form>
+        <hr />
+      </header>
+      <main>
+        <div class="current-weather">
+          <div>
+            <h1 id="town">Paris</h1>
+            <p>
+              <span id="time">Saturday 15:32</span>, moderate rain <br />
+              Humidity: <strong>87%</strong>, Wind: <strong>7.2km/h</strong>
+            </p>
+          </div>
+          <div class="temperature">
+            <span class="sun">☀️</span>
+            <span class="degree">14<small class="celsius">°C</small></span>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <hr />
+        <p>
+          This project was coded by
+          <a href="#" target="_blank">Ovie Aliboh</a> and is
+          <a href="#" target="_blank"> on GitHub</a> and
+          <a href="#" target="_blank">hosted on Netlify</a>
+        </p>
+      </footer>
+    </div>
+    <script>
+      function putCity(event) {
+        event.preventDefault();
+        let cities = document.querySelector("#place");
+        let town = document.querySelector("h1");
+        town.innerHTML = cities.value;
+      }
+
+      let city = document.querySelector("form");
+      city.addEventListener("submit", putCity);
+
+      function updateTime() {
+        let time = document.querySelector("#time");
+        let currentTime = new Date();
+        let hour = currentTime.getHours();
+        let minutes = currentTime.getMinutes();
+        let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+        let day = days[currentTime.getDay()];
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        if (hour < 10) {
+          hour = "0" + hour;
+        }
+        time.innerHTML = `${day} ${hour}:${minutes}`;
+      }
+      updateTime();
+    </script>
+  </body>
+</html>
